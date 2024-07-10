@@ -129,7 +129,7 @@ int main() {
         int u, v, w;
         cin >> u >> v >> w;                         // Input each edge (start_vertex, end_vertex, weight)
         graph[u].emplace_back(v, w);
-
+graph[v].emplace_back(u, w);
     }
 
     int source = 0;
