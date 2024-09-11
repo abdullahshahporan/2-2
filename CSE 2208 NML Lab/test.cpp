@@ -62,7 +62,7 @@ int main()
 using namespace std;
 double f(double x)
 {
-    return x*x*x-x-1;
+        return 3*x*x*x-5*x*x+2*x-7;
 }
 double bisection(double a, double b, double tolerance)
 {
@@ -78,7 +78,7 @@ double bisection(double a, double b, double tolerance)
     {
         c=(a+b)/2;
         double error=fabs(c-prev_c);
-        cout<<fixed<<iter++<<"\t\t\t"<<setprecision(6)<<c<<"\t\t\t"<<error<<endl;
+        cout<<fixed<<iter++<<"\t\t"<<setprecision(6)<<a<<"\t\t"<<b<<"\t\t"<<c<<"\t\t"<<error<<endl;
         if(f(c)==0.0||fabs(b-a)<tolerance)
         {
             break;
@@ -92,7 +92,7 @@ double bisection(double a, double b, double tolerance)
             a=c;
         }
         prev_c=c;
-        if(iter>=21)
+        if(iter>=20)
             break;
     }
     return c;
@@ -113,7 +113,7 @@ int main()
 using namespace std;
 double f(double x)
 {
-    return x*x*x-x-1;
+    return 3*x*x*x-5*x*x+2*x-7;
 }
 double false_position(double a,double b,double tolerance)
 {
@@ -130,7 +130,9 @@ double false_position(double a,double b,double tolerance)
         //c=b-(f(b)*(b-a)) /(f(b)-f(a));
         c=(a*f(b)-b*f(a))/(f(b)-f(a));
         double error=fabs(c-prev_c);
-        cout<<fixed<<iter++<<"\t\t\t"<<setprecision(4)<<c<<"\t\t\t"<<error<<endl;
+      //  cout<<fixed<<iter++<<"\t\t"<<setprecision(4)<<a<<"\t\t"<<b<<"\t\t"<<c<<"\t\t"<<error<<endl;
+        cout<<fixed<<setprecision(6)<<error<<endl;
+        iter++;
         if(f(c)==0.0)
         {
             break;
