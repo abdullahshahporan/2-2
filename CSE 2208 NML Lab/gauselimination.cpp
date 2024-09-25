@@ -1,18 +1,58 @@
 #include<bits/stdc++.h>
+
+#define SIZE 10
+
 using namespace std;
-const int MAX_SIZE=100;
-void print(double a[MAX_SIZE][MAX_SIZE],result[MAX_SIZE])
-int main()
-{
-    cout<<"Enter No. of equation"<<endl;
-    int n;
-    cin>>n;
-    double a[MAX_SIZE][MAX_SIZE],result[MAX_SIZE];
-    for(int i=0;i<n;++i){
-        for(int j=0;j<n;++j)
-        {
-            cin>>a[i][j];
+
+void gaussElimination(float a[SIZE][SIZE], float x[SIZE], int n) {
+    float ratio;
+//gauss elimination
+    for(int i=1; i<=n-1; i++) {
+        if(a[i][i] == 0.0) {
+            cout << "Mathematical Error!";
+            exit(0);
         }
-        cin>>result[i];
+        for(int j=i+1; j<=n; j++) {
+            ratio = a[j][i] / a[i][i];
+            for(int k=1; k<=n+1; k++) {
+                a[j][k] = a[j][k] - ratio * a[i][k];
+            }
+        }
     }
+//back substituition
+    x[n] = a[n][n+1] / a[n][n];
+    for(int i=n-1; i>=1; i--) {
+        x[i] = a[i][n+1];
+        for(int j=i+1; j<=n; j++) {
+            x[i] = x[i] - a[i][j] * x[j];
+        }
+        x[i] = x[i] / a[i][i];
+    }
+}
+
+int main() {
+    float a[SIZE][SIZE], x[SIZE];
+    int n;
+
+    cout << setprecision(3) << fixed;
+
+    cout << "Enter number of unknowns: ";
+    cin >> n;
+
+    cout << "Enter Coefficients of Augmented Matrix: " << endl;
+    for(int i=1; i<=n; i++) {
+        for(int j=1; j<=n+1; j++) {
+            //cout << "a[" << i << "][" << j << "] = ";
+            cin >> a[i][j];
+        }
+    }
+
+    gaussElimination(a, x, n);
+
+    cout << endl << "Solution: " << endl;
+    for(int i=1; i<=n; i++) {
+        cout << "x[" << i << "] = " << x[i] << endl;
+    }
+
+    return 0;
 }
